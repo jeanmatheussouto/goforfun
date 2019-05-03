@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"flag"
 )
 
 func fibBottomUp(n int) int {
@@ -56,15 +57,23 @@ func showResult(algorithm string, n, r int, elapsed float64) {
 }
 
 func main(){
-	n := 1000
+	var n int
+	flag.IntVar(&n, "n",  0, "N is the number to calculate fibonacci")
+
+	flag.Parse()
+	
 	var r int
 	var t1, t2 time.Time
 
-	// t1 := time.Now()
-	// r := fib(n)
-	// t2 := time.Now()
-	
-	// showResult("fib", n, r, elapsed(t1, t2))
+	if n <= 50 { //> TOO SLOW!!!
+		t1 = time.Now()
+		r = fib(n)
+		t2 = time.Now()
+
+		showResult("fib", n, r, elapsed(t1, t2))
+	} else {
+		fmt.Printf("fib(%d): too slow!!!\n", n)
+	}
 
 	t1 = time.Now()
 	memo := make([]int, n)
